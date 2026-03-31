@@ -1,0 +1,221 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 12px;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+/* ── Titlebar ────────────────────────────────── */
+
+.titlebar {
+  -webkit-app-region: drag;
+  background: #252525;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  flex-shrink: 0;
+  border-bottom: 1px solid #333;
+}
+
+.version {
+  color: #666;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.titlebar-buttons {
+  -webkit-app-region: no-drag;
+  display: flex;
+  gap: 2px;
+}
+
+.btn-refresh, .btn-close {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  transition: all 0.15s;
+  line-height: 1;
+}
+
+.btn-refresh:hover {
+  color: #4fc3f7;
+  background: rgba(79, 195, 247, 0.1);
+}
+
+.btn-close:hover {
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.15);
+}
+
+/* ── Headlines ───────────────────────────────── */
+
+.headlines {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.headline {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid #2a2a2a;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex: 1;
+  min-height: 0;
+}
+
+.headline:last-child {
+  border-bottom: none;
+}
+
+.headline:hover {
+  background: #222;
+}
+
+.headline-indicator {
+  width: 3px;
+  flex-shrink: 0;
+}
+
+.headline-content {
+  padding: 4px 8px;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+}
+
+.headline-text {
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #e8e8e8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.headline-desc {
+  font-size: 10px;
+  line-height: 1.25;
+  color: #888;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+/* ── Breaking / Updated Flash ────────────────── */
+
+.headline.breaking {
+  animation: flashRed 2s ease-in-out infinite;
+}
+
+.headline.updated {
+  animation: flashBlue 3s ease-in-out infinite;
+}
+
+@keyframes flashRed {
+  0%, 100% { background: #1a1a1a; }
+  50% { background: rgba(255, 50, 50, 0.12); }
+}
+
+@keyframes flashBlue {
+  0%, 100% { background: #1a1a1a; }
+  50% { background: rgba(79, 195, 247, 0.1); }
+}
+
+.headline.breaking .headline-text {
+  color: #ff6b6b;
+}
+
+.headline.breaking:hover,
+.headline.updated:hover {
+  animation: none;
+  background: #222;
+}
+
+/* ── Loading ─────────────────────────────────── */
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  color: #666;
+  font-size: 11px;
+}
+
+/* ── Status Bar ──────────────────────────────── */
+
+.status-bar {
+  height: 16px;
+  background: #1e1e1e;
+  border-top: 1px solid #2a2a2a;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  color: #555;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* ── Fade-in Animation ───────────────────────── */
+
+.headline {
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+.headline.breaking {
+  opacity: 1;
+  animation: flashRed 2s ease-in-out infinite;
+}
+
+.headline.updated {
+  opacity: 1;
+  animation: flashBlue 3s ease-in-out infinite;
+}
+
+.headline:nth-child(1) { animation-delay: 0.05s; }
+.headline:nth-child(2) { animation-delay: 0.10s; }
+.headline:nth-child(3) { animation-delay: 0.15s; }
+.headline:nth-child(4) { animation-delay: 0.20s; }
+.headline:nth-child(5) { animation-delay: 0.25s; }
+.headline:nth-child(6) { animation-delay: 0.30s; }
+.headline:nth-child(7) { animation-delay: 0.35s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

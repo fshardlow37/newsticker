@@ -1,0 +1,37 @@
+{
+  "name": "newsticker",
+  "version": "0.1.10",
+  "description": "Compact always-on-top news ticker showing top 7 headlines",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "npm version patch --no-git-tag-version && electron-builder --win portable",
+    "build-only": "electron-builder --win portable",
+    "launch": "start \"\" build/newsticker.exe"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^26.0.0"
+  },
+  "build": {
+    "appId": "com.newsticker.app",
+    "productName": "newsticker",
+    "win": {
+      "target": "portable",
+      "icon": null,
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "${productName}.${ext}"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "build"
+    }
+  }
+}

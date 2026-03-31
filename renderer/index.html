@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'">
+  <link rel="stylesheet" href="styles.css">
+  <title>newsticker</title>
+</head>
+<body>
+  <div class="titlebar" id="titlebar">
+    <span class="version" id="version">v...</span>
+    <div class="titlebar-buttons">
+      <button class="btn-refresh" id="btn-refresh" title="Refresh">&#8635;</button>
+      <button class="btn-close" id="btn-close" title="Close">&times;</button>
+    </div>
+  </div>
+  <div class="headlines" id="headlines">
+    <div class="loading">Fetching headlines...</div>
+  </div>
+  <div class="status-bar" id="status-bar"></div>
+  <script src="app.js"></script>
+</body>
+</html>
