@@ -1,6 +1,6 @@
 {
   "name": "newsticker",
-  "version": "0.1.10",
+  "version": "0.1.14",
   "description": "Compact always-on-top news ticker showing top 7 headlines",
   "main": "main.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "productName": "newsticker",
     "win": {
       "target": "portable",
-      "icon": null,
+      "icon": "assets/icon.ico",
       "signAndEditExecutable": false
     },
     "portable": {
@@ -28,6 +28,7 @@
       "main.js",
       "preload.js",
       "renderer/**/*",
+      "assets/**/*",
       "package.json"
     ],
     "directories": {

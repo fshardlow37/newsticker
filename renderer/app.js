@@ -27,7 +27,7 @@ function renderHeadlines(headlines) {
 
     return `
       <div class="${classes.join(' ')}" data-url="${escapeAttr(h.url)}" title="${escapeAttr(h.headline)}">
-        <div class="headline-indicator" style="background: ${h.color}"></div>
+        <div class="headline-indicator" style="background: ${sanitizeColor(h.color)}"></div>
         <div class="headline-content">
           <div class="headline-text">${escapeHtml(h.headline)}</div>
           <div class="headline-desc">${escapeHtml(h.description)}</div>
@@ -49,6 +49,10 @@ function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+function sanitizeColor(color) {
+  return /^#[0-9a-fA-F]{3,8}$/.test(color) ? color : '#888';
 }
 
 function escapeAttr(text) {

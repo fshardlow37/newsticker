@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #1a1a1a;
+  background: #0d1117;
   color: #e0e0e0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 12px;
@@ -20,14 +20,14 @@ body {
 
 .titlebar {
   -webkit-app-region: drag;
-  background: #252525;
+  background: #161b22;
   height: 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 8px;
   flex-shrink: 0;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid #30363d;
 }
 
 .version {
@@ -81,7 +81,7 @@ body {
 .headline {
   display: flex;
   align-items: stretch;
-  border-bottom: 1px solid #2a2a2a;
+  border-bottom: 1px solid #21262d;
   cursor: pointer;
   transition: background 0.15s;
   flex: 1;
@@ -93,7 +93,7 @@ body {
 }
 
 .headline:hover {
-  background: #222;
+  background: #161b22;
 }
 
 .headline-indicator {
@@ -142,12 +142,12 @@ body {
 }
 
 @keyframes flashRed {
-  0%, 100% { background: #1a1a1a; }
+  0%, 100% { background: #0d1117; }
   50% { background: rgba(255, 50, 50, 0.12); }
 }
 
 @keyframes flashBlue {
-  0%, 100% { background: #1a1a1a; }
+  0%, 100% { background: #0d1117; }
   50% { background: rgba(79, 195, 247, 0.1); }
 }
 
@@ -158,7 +158,7 @@ body {
 .headline.breaking:hover,
 .headline.updated:hover {
   animation: none;
-  background: #222;
+  background: #161b22;
 }
 
 /* ── Loading ─────────────────────────────────── */
@@ -176,8 +176,8 @@ body {
 
 .status-bar {
   height: 16px;
-  background: #1e1e1e;
-  border-top: 1px solid #2a2a2a;
+  background: #0d1117;
+  border-top: 1px solid #21262d;
   display: flex;
   align-items: center;
   padding: 0 8px;

@@ -42,7 +42,11 @@ function fetchUrl(url, maxRedirects = 5) {
     const req = client.get(url, { timeout: 10000, headers: { 'User-Agent': 'NewsTicker/2.0' } }, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         if (maxRedirects <= 0) { reject(new Error('Too many redirects')); return; }
-        fetchUrl(res.headers.location, maxRedirects - 1).then(resolve).catch(reject);
+        const loc = res.headers.location;
+        if (!loc.startsWith('http://') && !loc.startsWith('https://')) {
+          reject(new Error('Redirect to non-HTTP URL blocked')); return;
+        }
+        fetchUrl(loc, maxRedirects - 1).then(resolve).catch(reject);
         return;
       }
       if (res.statusCode !== 200) {
@@ -358,7 +362,7 @@ async function queryOllama(articles) {
 
   const prompt = `Below are ${filtered.length} real news headlines from the last 24 hours. Select the 7 most globally significant DISTINCT events. Each must be a DIFFERENT story — no two items about the same event. Only stories affecting millions of people, major geopolitical shifts, or major scientific advances. No opinion, no individual crime, no entertainment, no celebrity, no niche policy.
 
-For each, write a neutral 7-10 word headline and a 15-20 word description with key facts.
+For each, write a neutral 7-10 word headline and a 15-20 word description. The description MUST add new information not in the headline — context, numbers, who, where, or consequences. Never repeat or rephrase the headline.
 
 sourceIndex = the number of the headline from the list below.
 Categories: global, science, interests, future, general
@@ -389,12 +393,13 @@ ${headlineList}`;
     if (!jsonMatch) throw new Error('No JSON array in Ollama response: ' + text.slice(0, 200));
 
     const items = JSON.parse(jsonMatch[0]);
+    console.log('Ollama parsed keys:', items.length > 0 ? Object.keys(items[0]).join(', ') : 'empty');
     return items.slice(0, 7).map(item => {
       const srcIdx = (item.sourceIndex || 1) - 1;
       const srcArticle = filtered[srcIdx] || filtered[0];
       return {
-        headline: item.headline || 'Untitled',
-        description: item.description || '',
+        headline: item.headline || item.title || 'Untitled',
+        description: item.description || item.summary || item.desc || '',
         category: item.category || 'general',
         color: CATEGORY_COLORS[item.category] || CATEGORY_COLORS.general,
         breaking: !!item.breaking,
@@ -543,13 +548,15 @@ function createWindow() {
     frame: false,
     resizable: true,
     skipTaskbar: false,
-    backgroundColor: '#1a1a1a',
+    icon: path.join(__dirname, 'assets', 'icon.ico'),
+    backgroundColor: '#0d1117',
     minWidth: 200,
     minHeight: 200,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
+      sandbox: true,
     },
   };
 

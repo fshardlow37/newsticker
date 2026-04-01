@@ -6,6 +6,12 @@ contextBridge.exposeInMainWorld('api', {
   closeWindow: () => ipcRenderer.send('close-window'),
   openExternal: (url) => ipcRenderer.send('open-external', url),
   refreshNow: () => ipcRenderer.invoke('refresh-now'),
-  onHeadlinesUpdated: (callback) => ipcRenderer.on('headlines-updated', (_, data) => callback(data)),
-  onStatusUpdate: (callback) => ipcRenderer.on('status-update', (_, msg) => callback(msg)),
+  onHeadlinesUpdated: (callback) => {
+    ipcRenderer.removeAllListeners('headlines-updated');
+    ipcRenderer.on('headlines-updated', (_, data) => callback(data));
+  },
+  onStatusUpdate: (callback) => {
+    ipcRenderer.removeAllListeners('status-update');
+    ipcRenderer.on('status-update', (_, msg) => callback(msg));
+  },
 });
