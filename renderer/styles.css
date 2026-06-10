@@ -99,6 +99,50 @@ body {
 .headline-indicator {
   width: 3px;
   flex-shrink: 0;
+  background: #888;
+}
+
+.headline-indicator[data-category="global"]    { background: #4fc3f7; }
+.headline-indicator[data-category="science"]   { background: #66bb6a; }
+.headline-indicator[data-category="interests"] { background: #ffa726; }
+.headline-indicator[data-category="future"]    { background: #ab47bc; }
+.headline-indicator[data-category="general"]   { background: #888; }
+.headline-indicator[data-category="ai"]         { background: #2dd4bf; }
+
+/* ── AI Slots (dedicated) ────────────────────── */
+
+.headline.ai-slot {
+  background: rgba(45, 212, 191, 0.07);
+}
+
+.headline.ai-slot:hover {
+  background: rgba(45, 212, 191, 0.14);
+}
+
+.headline.ai-slot .headline-indicator {
+  width: 4px;
+  background: #2dd4bf;
+  box-shadow: 0 0 6px rgba(45, 212, 191, 0.55);
+}
+
+.headline.ai-slot .headline-text {
+  color: #d7fff7;
+}
+
+/* CSS-only "AI" chip so the dedicated slots read at a glance */
+.headline.ai-slot .headline-text::before {
+  content: "AI";
+  display: inline-block;
+  background: #2dd4bf;
+  color: #04201c;
+  font-size: 8.5px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  margin-right: 5px;
+  vertical-align: middle;
+  letter-spacing: 0.5px;
 }
 
 .headline-content {
@@ -119,6 +163,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: color 1s ease;
 }
 
 .headline-desc {
@@ -134,24 +179,29 @@ body {
 /* ── Breaking / Updated Flash ────────────────── */
 
 .headline.breaking {
-  animation: flashRed 2s ease-in-out infinite;
+  animation: flashRed 2s ease-in-out 3;
 }
 
 .headline.updated {
-  animation: flashBlue 3s ease-in-out infinite;
+  animation: flashBlue 3s ease-in-out 2;
 }
 
 @keyframes flashRed {
-  0%, 100% { background: #0d1117; }
-  50% { background: rgba(255, 50, 50, 0.12); }
+  0%, 100% { background: rgba(255, 50, 50, 0.06); }
+  50% { background: rgba(255, 40, 40, 0.35); }
 }
 
 @keyframes flashBlue {
-  0%, 100% { background: #0d1117; }
-  50% { background: rgba(79, 195, 247, 0.1); }
+  0%, 100% { background: rgba(79, 195, 247, 0.05); }
+  50% { background: rgba(79, 195, 247, 0.3); }
 }
 
-.headline.breaking .headline-text {
+/* Static tint after animation finishes so they still look distinct */
+.headline.breaking { background: rgba(255, 50, 50, 0.06); }
+.headline.updated { background: rgba(79, 195, 247, 0.05); }
+
+.headline.breaking .headline-text,
+.headline.new-story .headline-text {
   color: #ff6b6b;
 }
 
@@ -195,21 +245,21 @@ body {
 
 .headline.breaking {
   opacity: 1;
-  animation: flashRed 2s ease-in-out infinite;
+  animation: flashRed 2s ease-in-out 3;
 }
 
 .headline.updated {
   opacity: 1;
-  animation: flashBlue 3s ease-in-out infinite;
+  animation: flashBlue 3s ease-in-out 2;
 }
 
-.headline:nth-child(1) { animation-delay: 0.05s; }
-.headline:nth-child(2) { animation-delay: 0.10s; }
-.headline:nth-child(3) { animation-delay: 0.15s; }
-.headline:nth-child(4) { animation-delay: 0.20s; }
-.headline:nth-child(5) { animation-delay: 0.25s; }
-.headline:nth-child(6) { animation-delay: 0.30s; }
-.headline:nth-child(7) { animation-delay: 0.35s; }
+.headline:not(.breaking):not(.updated):nth-child(1) { animation-delay: 0.05s; }
+.headline:not(.breaking):not(.updated):nth-child(2) { animation-delay: 0.10s; }
+.headline:not(.breaking):not(.updated):nth-child(3) { animation-delay: 0.15s; }
+.headline:not(.breaking):not(.updated):nth-child(4) { animation-delay: 0.20s; }
+.headline:not(.breaking):not(.updated):nth-child(5) { animation-delay: 0.25s; }
+.headline:not(.breaking):not(.updated):nth-child(6) { animation-delay: 0.30s; }
+.headline:not(.breaking):not(.updated):nth-child(7) { animation-delay: 0.35s; }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }

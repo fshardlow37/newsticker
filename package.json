@@ -1,13 +1,11 @@
 {
   "name": "newsticker",
-  "version": "0.1.14",
+  "version": "0.1.36",
   "description": "Compact always-on-top news ticker showing top 7 headlines",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "npm version patch --no-git-tag-version && electron-builder --win portable",
-    "build-only": "electron-builder --win portable",
-    "launch": "start \"\" build/newsticker.exe"
+    "launch": "start \"\" newsticker.exe"
   },
   "devDependencies": {
     "electron": "^35.0.0",
